@@ -1,1 +1,25 @@
-<!-- Crear una página que emita los datos del usuario -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resultados del formulario</title>
+    <link rel="stylesheet" href="../../static/css/style.css" />
+  </head>
+  <body>
+    {% block content %}
+    <header class="header">
+      <div class="header__text">
+        <h1>Resultados del formulario</h1>
+      </div>
+    </header>
+    <ul class="list">
+      <li class="list__item2">Tu nombre: {{ name }}</li>
+      <li class="list__item2">Tu email: {{ email }}</li>
+      <li class="list__item2">Tu direccion: {{ address }}</li>
+      <li class="list__item2">Tu fecha: {{ date }}</li>
+    </ul>
+    {% endblock %}
+  </body>
+</html>
