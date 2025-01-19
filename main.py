@@ -1,4 +1,6 @@
-from flask import Flask, render_template
+# Importar
+from flask import Flask, render_template, request
+
 
 app = Flask(__name__)
 
@@ -9,11 +11,11 @@ def result_calculate(size, lights, device):
     devices_coef = 5   
     return size * home_coef + lights * light_coef + device * devices_coef 
 
+# La primera página
 @app.route('/')
 def index():
     return render_template('index.html')
-
-# La segunda página
+# Segunda página
 @app.route('/<size>')
 def lights(size):
     return render_template(
@@ -25,7 +27,7 @@ def lights(size):
 @app.route('/<size>/<lights>')
 def electronics(size, lights):
     return render_template(
-                            'electronics.html',
+                            'electronics.html',                           
                             size = size, 
                             lights = lights                           
                            )
@@ -39,5 +41,34 @@ def end(size, lights, device):
                                                     int(device)
                                                     )
                         )
+# El formulario
+@app.route('/form')
+def form():
+    return render_template('form.html')
+
+#Resultados del formulario
+@app.route('/submit', methods=['POST'])
+def submit_form():
+    # Declarar variables para la recogida de datos
+    name = request.form['name']
+    email = request.form['email']
+    address = request.form['address']
+    date = request.form['date']
+    
+    variable = f'entrega de formulario:\nNombre: {name}\nEmail: {email}\nDirección: {address}\nFecha: {date}\n\n'
+    
+
+    with open('form.txt', 'a',) as f:
+        f.write(variable)
+
+    # Puedes guardar tus datos o enviarlos por correo electrónico
+    return render_template('form_result.html', 
+                           # Coloque aquí las variables
+                           name=name,
+                           email=email,
+                           address=address,
+                           date=date,
+                           )
+
 
 app.run(debug=True)
